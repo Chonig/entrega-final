@@ -159,7 +159,7 @@ const listaProductos =() => {
         Productos.appendChild(card);
         const boton = document.getElementById(`boton${vehiculo.id}`);
         boton.addEventListener("click", () => {
-            alert("Vehículo agregado con éxito");
+            Swal.fire("Vehiculo agregado con éxito");
             agregarVehiculo(vehiculo.id);
         })
     })
@@ -215,6 +215,7 @@ const mostrarCarrito = () => {
     contenedorCarrito.appendChild(card);
     const boton = document.getElementById(`eliminar${vehiculo.id}`);
     boton.addEventListener("click", () =>{
+        Swal.fire("Vehiculo Eliminado del carrito");
         eliminarVehiculo(vehiculo.id);
         })
     })
@@ -233,6 +234,7 @@ const eliminarVehiculo = (id) => {
 
 const vaciarCarrito = document.getElementById("vaciarCarrito");
 vaciarCarrito.addEventListener("click", () => {
+    Swal.fire("Carrito vacio");
     eliminarTodoElCarrito();
 })
     
@@ -255,5 +257,32 @@ const calcularTotal = () => {
     })
     total.innerHTML = `Total: $${totalCompra}`;
 }
+
+
+const apiCripto = "https://criptoya.com/api/dolar";
+
+const apiDolar = document.getElementById("apiDolar");
+
+setInterval(()=>{
+    fetch(apiCripto)
+        .then(response => response.json())
+        .then(({blue , ccb , ccl , mep , oficial , solidario}) =>{
+            
+            apiDolar.innerHTML= `
+            <div class="tituloapi">
+                <h2>Tipos de Dolar: </h2>
+            </div>
+            <div class="dolares"><p>Dolar Oficial: ${oficial}</p>
+                <p>Dolar Solidario : ${solidario}</p>
+                <p>Dolar Mep: ${mep}</p>
+                <p>Dolar Ccb: ${ccb}</p>
+                <p>Dolar Blue: ${blue}</p>
+                <p>Dolar Ccl: ${ccl}</p>
+            </div>
+            `
+        })
+        .catch( error => console.error(error))
+
+}, 5000)
 
 
