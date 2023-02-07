@@ -89,7 +89,7 @@ switch(opcion){
 /** Bloque de la Tercera Entrega **/
 
 //Defino la clase de los productos que voy a incluir en el carro de compras
-    class Auto {
+    class auto {
         constructor(id,img,marca,modelo,año,kilometros,precio){
             this.id = id;
             this.img = img;
@@ -106,14 +106,14 @@ switch(opcion){
 
 // Defino 5(cinco) productos para el carro el de compras
 
-    const autoUno = new Auto (1,"img/focus.jpg","Ford","Focus", 2015, 89000, 2500000);
-    const autoDos = new Auto (2,"img/fiesta.jpg","Ford","Fiesta", 2017, 49000, 3500000);
-    const autoTres = new Auto (3,"img/raptor.jpg","Ford","Raptor", 2021, 5000, 15500000);
-    const autoCuatro = new Auto (4,"img/maverick.jpg","Ford","Maverick", 2023, 0, 22000000);
-    const autoCinco = new Auto (5,"img/mondeo.jpg","Ford","Mondeo", 2010, 189000, 2000000);
-    const autoSeis = new Auto (6,"img/f100.jpg","Ford","F100", 1998, 389000, 1000000);
-    const autoSiete = new Auto (7,"img/mustang.jpg","Ford","Mustang", 2020, 5000, 30000000);
-    const autoOcho = new Auto (8,"img/ranger.jpg","Ford","Ranger", 2019, 100000, 10000000);
+    const autoUno = new auto (1,"img/focus.jpg","Ford","Focus", 2015, 89000, 2500000);
+    const autoDos = new auto (2,"img/fiesta.jpg","Ford","Fiesta", 2017, 49000, 3500000);
+    const autoTres = new auto (3,"img/raptor.jpg","Ford","Raptor", 2021, 5000, 15500000);
+    const autoCuatro = new auto (4,"img/maverick.jpg","Ford","Maverick", 2023, 0, 22000000);
+    const autoCinco = new auto (5,"img/mondeo.jpg","Ford","Mondeo", 2010, 189000, 2000000);
+    const autoSeis = new auto (6,"img/f100.jpg","Ford","F100", 1998, 389000, 1000000);
+    const autoSiete = new auto (7,"img/mustang.jpg","Ford","Mustang", 2020, 5000, 30000000);
+    const autoOcho = new auto (8,"img/ranger.jpg","Ford","Ranger", 2019, 100000, 10000000);
 
 
 //Array de productos
@@ -133,34 +133,34 @@ switch(opcion){
 
 //Llamo a Rafa para acceder dinámicamente al HTML
 
-    const Productos = document.getElementById("Productos");
+    const contenedorAutos = document.getElementById("contenedorAutos");
 
 //Mostramos el carrito de compras
 
 const listaProductos =() => {
-        Vehiculos.forEach( vehiculo => {
+        Vehiculos.forEach( auto => {
             const card = document.createElement("div");
             card.classList.add("col-xl-3", "col-md-6", "col-xs-12");
             card.innerHTML = `
                                 <div class="card">
-                                    <img src= "${vehiculo.img}" class="card-img-top imgVehiculos" alt=" ${vehiculo.marca," " + vehiculo.modelo}">
+                                    <img src= "${auto.img}" class="card-img-top imgVehiculos" alt=" ${auto.marca," " + auto.modelo}">
                                     <div class="card-body">
-                                        <h5>${vehiculo.marca}</h5>
-                                        <p>Modelo: ${vehiculo.modelo}</p>
-                                        <p>Kilómetros: ${vehiculo.kilometros}km</p>
-                                        <p>Año: ${vehiculo.año}</p>
-                                        <p>Precio: $${vehiculo.precio}</p>
-                                        <button class="btn colorBoton" id="boton${vehiculo.id}">Agregar al Carrito </button>
+                                        <h5>$autoo.marca}</h5>
+                                        <p>Modelo: ${auto.modelo}</p>
+                                        <p>Kilómetros: ${auto.kilometros}km</p>
+                                        <p>Año: ${auto.año}</p>
+                                        <p>Precio: $${auto.precio}</p>
+                                        <button class="btn colorBoton" id="boton${auto.id}">Agregar al Carrito </button>
                                     </div>
                                 </div>
                             `
     // Aviso de que el vehiculo fue agregado con éxito
 
-        Productos.appendChild(card);
-        const boton = document.getElementById(`boton${vehiculo.id}`);
+        contenedorAutos.appendChild(card);
+        const boton = document.getElementById(`boton${auto.id}`);
         boton.addEventListener("click", () => {
             Swal.fire("Vehiculo agregado con éxito");
-            agregarVehiculo(vehiculo.id);
+            agregarVehiculo(auto.id);
         })
     })
 }
@@ -169,24 +169,24 @@ const listaProductos =() => {
 listaProductos();
 // Función para agregar al carrito de compras
 
-    const agregarVehiculo = (id) => {
-        const vehiculoAgregado = carrito.find(vehiculo => vehiculo.id === id);
-        if(vehiculoAgregado){
-            vehiculoAgregado.cantidad++;
-        } else {
-            const vehiculo = Vehiculos.find(vehiculo => vehiculo.id === id);
-            carrito.push(vehiculo); 
-        }
+const agregarVehiculo = (id) => {
+    const vehiculoAgregado = carrito.find(auto => auto.id === id);
+    if(vehiculoAgregado){
+        vehiculoAgregado.cantidad++;
+    } else {
+        const auto = Vehiculos.find(auto => auto.id === id);
+        carrito.push(auto); 
 
-        if(localStorage.getItem("carrito")){
-            carrito = JSON.parse(localStorage.getItem("carrito"));
+    localStorage.setItem("carrito",JSON.stringify(carrito));
 }
+    calcularTotal();
+    
 }
 
 
 // Mostrar Carrito de compras
 
-const contenedorCarrito = document.getElementById("contendorCarrito");
+const contenedorCarrito = document.getElementById("contenedorCarrito");
 const verCarrito = document.getElementById("verCarrito");
 
 verCarrito.addEventListener("click", () =>{
@@ -195,36 +195,38 @@ verCarrito.addEventListener("click", () =>{
 
 const mostrarCarrito = () => {
     contenedorCarrito.innerHTML= "";
-    carrito.forEach( vehiculo => {
-        const card = document.createElement("div");
+
+    carrito.forEach( auto => {
+    const card = document.createElement("div");
             card.classList.add("col-xl-3", "col-md-6", "col-xs-12");
-            card.innerHTML = `
+            card.innerHTML =    `
                                 <div class="card">
-                                    <img src= "${vehiculo.img}" class="card-img-top imgVehiculos" alt=" ${vehiculo.marca," " + vehiculo.modelo}">
+                                    <img src= "${auto.img}" class="card-img-top imgVehiculos" alt=" ${auto.marca," " + auto.modelo}">
                                     <div class="card-body">
-                                        <h5>${vehiculo.marca}</h5>
-                                        <p>Modelo: ${vehiculo.modelo}</p>
-                                        <p>Kilómetros: ${vehiculo.kilometros}km</p>
-                                        <p>Año: ${vehiculo.año}</p>
-                                        <p>Precio: $${vehiculo.precio}</p>
-                                        <p>Cantidad: ${vehiculo.cantidad}</p>
-                                        <button class="btn colorBoton" id="eliminar${vehiculo.id}">Eliminar Vehiculo</button>
+                                        <h5>${auto.marca}</h5>
+                                        <p>Modelo: ${auto.modelo}</p>
+                                        <p>Kilómetros: ${auto.kilometros}km</p>
+                                        <p>Año: ${auto.año}</p>
+                                        <p>Precio: $${auto.precio}</p>
+                                        <p>Cantidad: ${auto.cantidad}</p>
+                                        <button class="btn colorBoton" id="eliminar${auto.id}">Eliminar Vehiculo</button>
                                     </div>
                                 </div>
-                            `
+                                `
     contenedorCarrito.appendChild(card);
-    const boton = document.getElementById(`eliminar${vehiculo.id}`);
-    boton.addEventListener("click", () =>{
+
+    const boton = document.getElementById(`eliminar${auto.id}`);
+    boton.addEventListener("click", () => {
         Swal.fire("Vehiculo Eliminado del carrito");
-        eliminarVehiculo(vehiculo.id);
+        eliminarVehiculo(auto.id);
         })
     })
     calcularTotal();
 }
 
 const eliminarVehiculo = (id) => {
-    const vehiculo = carrito.find(vehiculo => vehiculo.id === id);
-    const indice = carrito.indexOf(vehiculo);
+    const auto = carrito.find(auto => auto.id === id);
+    const indice = carrito.indexOf(auto);
     carrito.splice(indice, 1);
     mostrarCarrito();
 
@@ -233,9 +235,10 @@ const eliminarVehiculo = (id) => {
 }
 
 const vaciarCarrito = document.getElementById("vaciarCarrito");
+
 vaciarCarrito.addEventListener("click", () => {
-    Swal.fire("Carrito vacio");
     eliminarTodoElCarrito();
+    
 })
     
 
@@ -251,8 +254,8 @@ const total = document.getElementById("total");
 
 const calcularTotal = () => {
     let totalCompra = 0;
-    carrito.forEach(vehiculo => {
-        totalCompra += vehiculo.precio * vehiculo.cantidad;
+    carrito.forEach(auto => {
+        totalCompra += auto.precio * auto.cantidad;
     
     })
     total.innerHTML = `Total: $${totalCompra}`;
@@ -273,16 +276,16 @@ setInterval(()=>{
                 <h2>Tipos de Dolar: </h2>
             </div>
             <div class="dolares"><p>Dolar Oficial: ${oficial}</p>
-                <p>Dolar Solidario : ${solidario}</p>
-                <p>Dolar Mep: ${mep}</p>
-                <p>Dolar Ccb: ${ccb}</p>
-                <p>Dolar Blue: ${blue}</p>
-                <p>Dolar Ccl: ${ccl}</p>
+                <p class="apiDolar">Dolar Solidario : ${solidario}</p>
+                <p class="apiDolar">Dolar Mep: ${mep}</p>
+                <p class="apiDolar">Dolar Ccb: ${ccb}</p>
+                <p class="apiDolar">Dolar Blue: ${blue}</p>
+                <p class="apiDolar">Dolar Ccl: ${ccl}</p>
             </div>
             `
         })
         .catch( error => console.error(error))
 
-}, 5000)
+}, 1000)
 
 
